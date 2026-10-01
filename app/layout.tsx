@@ -3,12 +3,12 @@ import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
-  variable: "--font-title",
+  variable: "--montserrat",
   subsets: ["latin"],
 });
 
 const inter = Inter({
-  variable: "--font-text",
+  variable: "--inter",
   subsets: ["latin"],
 });
 
