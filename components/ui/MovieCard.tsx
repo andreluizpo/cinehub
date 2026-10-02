@@ -24,7 +24,7 @@ export function MovieCard({ item }: MovieCardProps) {
       {/* Movie Info */}
       <div>
         <h3 className="font-title font-bold text-base md:text-lg truncate">{title}</h3>
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-1">
           <span className="font-text text-xs font-medium text-muted-foreground">{year}</span>
           <span className="text-xs font-bold text-primary flex items-center gap-1 [&_svg]:size-4">
             <StarIcon /> {voteAverage}

@@ -1,14 +1,15 @@
-import { MovieCarousel } from "@/components/ui/MovieCarousel";
-import { getTrending } from "@/lib/tmdb";
+import { TrendingSection } from "@/components/home/TrendingSection";
+import { MovieCarouselSkeleton } from "@/components/ui/Skeleton";
+import { Suspense } from "react";
 
-export default async function Home() {
-  const trending = await getTrending();
-
+export default function Home() {
   return (
     <main>
       <h1 className="text-4xl font-extrabold mb-5">CineHub</h1>
 
-      <MovieCarousel heading="Tendências" items={trending} />
+      <Suspense fallback={<MovieCarouselSkeleton />}>
+        <TrendingSection />
+      </Suspense>
     </main>
   );
 }
