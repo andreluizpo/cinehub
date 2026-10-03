@@ -4,14 +4,22 @@ import Image from "next/image";
 import { MediaItem } from "@/types/tmdb";
 
 type MovieCardProps = {
+  isUpcoming?: boolean;
   item: MediaItem;
 };
 
-export function MovieCard({ item }: MovieCardProps) {
+export function MovieCard({ isUpcoming = false, item }: MovieCardProps) {
   const posterURL = getPosterURL(item.poster_path, "w342");
   const title = item.media_type === "movie" ? item.title : item.name;
   const date = item.media_type === "movie" ? item.release_date : item.first_air_date;
-  const year = new Date(date).getFullYear();
+  const year = isUpcoming
+    ? new Date(date).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      })
+    : new Date(date).getFullYear();
   const voteAverage = item.vote_average.toFixed(1);
 
   return (
@@ -26,9 +34,11 @@ export function MovieCard({ item }: MovieCardProps) {
         <h3 className="font-title font-bold text-base md:text-lg truncate">{title}</h3>
         <div className="flex justify-between mt-1">
           <span className="font-text text-xs font-medium text-muted-foreground">{year}</span>
-          <span className="text-xs font-bold text-primary flex items-center gap-1 [&_svg]:size-4">
-            <StarIcon /> {voteAverage}
-          </span>
+          {!isUpcoming && (
+            <span className="text-xs font-bold text-primary flex items-center gap-1 [&_svg]:size-4">
+              <StarIcon /> {voteAverage}
+            </span>
+          )}
         </div>
       </div>
     </article>

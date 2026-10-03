@@ -1,4 +1,4 @@
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   original_title: string;
@@ -16,7 +16,7 @@ interface Movie {
   vote_count: number;
 }
 
-interface TVShow {
+export interface TVShow {
   id: number;
   name: string;
   original_name: string;

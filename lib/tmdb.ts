@@ -1,4 +1,4 @@
-import { MediaItem } from "@/types/tmdb";
+import { MediaItem, Movie, TVShow } from "@/types/tmdb";
 
 const TMDB_API_ACCESS_TOKEN = process.env.TMDB_API_ACCESS_TOKEN;
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
@@ -15,7 +15,7 @@ async function fetchTMDB<T>(route: string): Promise<T | null> {
 
   try {
     // Tenta fazer a busca na API
-    const res = await fetch(`${TMDB_BASE_URL}/${route}?language=pt-BR`, options);
+    const res = await fetch(`${TMDB_BASE_URL}${route}?language=pt-BR`, options);
 
     // Se o resultado não for sucesso, lança um erro
     if (!res.ok) throw new Error("Erro ao buscar");
@@ -46,4 +46,14 @@ export function getPosterURL(
 export async function getTrending() {
   const data = await fetchTMDB<{ results: MediaItem[] }>("/trending/all/day");
   return data?.results ?? [];
+}
+
+export async function getPopularMovies() {
+  const data = await fetchTMDB<{ results: Movie[] }>("/movie/popular");
+  return data?.results.map((item) => ({ ...item, media_type: "movie" as const })) ?? [];
+}
+
+export async function getPopularTVShow() {
+  const data = await fetchTMDB<{ results: TVShow[] }>("/tv/popular");
+  return data?.results.map((item) => ({ ...item, media_type: "tv" as const })) ?? [];
 }
