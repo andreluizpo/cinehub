@@ -23,15 +23,23 @@ export function MovieCard({ isUpcoming = false, item }: MovieCardProps) {
   const voteAverage = item.vote_average.toFixed(1);
 
   return (
-    <article className="max-w-35 md:max-w-40">
+    <article className="max-w-35 md:max-w-40 group">
       {/* Movie Poster */}
-      <div className="relative aspect-2/3 w-35 md:w-40 mb-2.5 rounded-2xl overflow-hidden">
-        <Image src={posterURL} alt={title} fill sizes="(max-width: 768px) 140px, 160px" className="object-cover" />
+      <div className="relative aspect-2/3 w-35 md:w-40 mb-2.5 rounded-2xl overflow-hidden transition-all group-hover:ring-3 group-hover:ring-primary group-hover:drop-shadow-2xl group-hover:drop-shadow-primary/25">
+        <Image
+          src={posterURL}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 140px, 160px"
+          className="object-cover transition-transform duration-300 group-hover:scale-110 group-hover:animate-scale"
+        />
       </div>
 
       {/* Movie Info */}
       <div>
-        <h3 className="font-title font-bold text-base md:text-lg truncate">{title}</h3>
+        <h3 className="font-title font-bold text-base md:text-lg truncate transition-colors duration-300 group-hover:text-primary">
+          {title}
+        </h3>
         <div className="flex justify-between mt-1">
           <span className="font-text text-xs font-medium text-muted-foreground">{year}</span>
           {!isUpcoming && (

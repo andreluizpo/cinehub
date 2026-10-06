@@ -7,7 +7,9 @@ import { Suspense } from "react";
 export default function Home() {
   return (
     <main>
-      <h1 className="text-4xl font-extrabold mb-5">CineHub</h1>
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-extrabold mb-5">CineHub</h1>
+      </div>
 
       <Suspense fallback={<MovieCarouselSkeleton />}>
         <TrendingSection />
