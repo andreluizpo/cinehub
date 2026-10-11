@@ -7,9 +7,7 @@ import { Suspense } from "react";
 export default function Home() {
   return (
     <main>
-      <Suspense fallback={<MovieCarouselSkeleton />}>
-        <TrendingSection />
-      </Suspense>
+      <TrendingSection />
 
       <Suspense fallback={<MovieCarouselSkeleton />}>
         <PopularMoviesSection />
