@@ -2,7 +2,7 @@ import { MediaItem, Movie, TVShow } from "@/types/tmdb";
 
 const TMDB_API_ACCESS_TOKEN = process.env.TMDB_API_ACCESS_TOKEN;
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-const TMDB_IMAGE_BASE = process.env.TMDB_IMAGE_BASE;
+const NEXT_PUBLIC_TMDB_IMAGE_BASE = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE;
 
 const options = {
   method: "GET",
@@ -40,7 +40,11 @@ export function getPosterURL(
 ) {
   if (!path) return "";
 
-  return `${TMDB_IMAGE_BASE}/${size}${path}`;
+  return `${NEXT_PUBLIC_TMDB_IMAGE_BASE}/${size}${path}`;
+}
+
+export function getBackdropURL(path: string | null, size: "w300" | "w780" | "w1280" | "original") {
+  return `${NEXT_PUBLIC_TMDB_IMAGE_BASE}/${size}${path}`;
 }
 
 export async function getTrending() {
