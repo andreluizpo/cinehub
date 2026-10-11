@@ -1,13 +1,15 @@
 import { PopularMoviesSection } from "@/components/home/PopularMoviesSection";
 import { PopularTVShowSection } from "@/components/home/PopularTVShowSection";
 import { TrendingSection } from "@/components/home/TrendingSection";
-import { MovieCarouselSkeleton } from "@/components/ui/Skeleton";
+import { HeroTrendingSkeleton, MovieCarouselSkeleton } from "@/components/ui/Skeleton";
 import { Suspense } from "react";
 
 export default function Home() {
   return (
     <main>
-      <TrendingSection />
+      <Suspense fallback={<HeroTrendingSkeleton />}>
+        <TrendingSection />
+      </Suspense>
 
       <Suspense fallback={<MovieCarouselSkeleton />}>
         <PopularMoviesSection />

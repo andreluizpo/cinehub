@@ -6,7 +6,7 @@ export function MovieCarouselSkeleton() {
         <div className="bg-primary/15 rounded-2xl w-49 h-5 md:w-54 md:h-6"></div>
       </div>
 
-      <div className="flex gap-3 pb-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-primary/15 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-primary/20">
+      <div className="flex gap-3 pb-4 overflow-hidden">
         {Array.from({ length: 20 }).map((_, i) => (
           <div key={i} className="animate-pulse">
             {/* Movie Poster */}
@@ -33,5 +33,70 @@ export function MovieCarouselSkeleton() {
         ))}
       </div>
     </div>
+  );
+}
+
+export function HeroTrendingSkeleton() {
+  return (
+    <section className="relative w-full h-auto md:h-[80vh] lg:h-[90vh] overflow-hidden animate-pulse">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        {/* Image */}
+        <div className="w-full h-full bg-primary/10" />
+
+        {/* Gradients */}
+        <div className="absolute inset-0 bg-linear-to-r from-background via-background/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent"></div>
+      </div>
+
+      {/* Content */}
+      <div className="container mx-auto relative px-4 mb-6 h-125 md:h-[60vh] lg:h-[80vh] flex flex-col justify-end lg:justify-center">
+        <div className="space-y-4 md:max-w-[50vw] xl:max-w-[40vw]">
+          {/* title */}
+          <div className="flex items-center w-full h-10 md:h-15">
+            <div className="h-8 md:h-13 w-70 md:w-90 rounded-full bg-primary/15"></div>
+          </div>
+
+          <div className="flex gap-2.5">
+            {/* Badge mediaType */}
+            <div className="h-7 flex items-center">
+              <div className="h-5 w-14 rounded-full bg-primary/15"></div>
+            </div>
+
+            {/* Badge year */}
+            <div className="h-7 flex items-center">
+              <div className="h-5 w-14 rounded-full bg-primary/15"></div>
+            </div>
+
+            {/* Badge voteAverage */}
+            <div className="h-7 flex items-center">
+              <div className="h-5 w-14 rounded-full bg-primary/15"></div>
+            </div>
+          </div>
+
+          {/* overview */}
+          <div className="flex flex-col gap-2 h-20">
+            <div className="h-3 md:h-5 w-[full] rounded-full bg-primary/15"></div>
+            <div className="h-3 md:h-5 w-[85%] rounded-full bg-primary/15"></div>
+            <div className="h-3 md:h-5 w-[90%] rounded-full bg-primary/15"></div>
+            <div className="h-3 md:h-5 w-[50%] rounded-full bg-primary/15"></div>
+          </div>
+
+          <div className="flex gap-3">
+            {/* Button more info */}
+            <div className="h-9 w-44 rounded-xl bg-primary/15"></div>
+
+            {/* Button add to list*/}
+            <div className="h-9 w-9 rounded-xl bg-primary/15"></div>
+
+            {/* Button add to favorites */}
+            <div className="h-9 w-9 rounded-xl bg-primary/15"></div>
+
+            {/* Button mark as watched */}
+            <div className="h-9 w-9 rounded-xl bg-primary/15"></div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
