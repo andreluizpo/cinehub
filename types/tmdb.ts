@@ -7,13 +7,18 @@ export interface Movie {
   backdrop_path: string;
   media_type: "movie";
   original_language: string;
-  genre_ids: number[];
+  genres: {
+    id: number;
+    name: string;
+  }[];
   popularity: number;
   release_date: string;
   softcore: boolean;
   video: boolean;
   vote_average: number;
   vote_count: number;
+  runtime: number;
+  tagline: string;
 }
 
 export interface TVShow {
@@ -25,13 +30,17 @@ export interface TVShow {
   backdrop_path: string;
   media_type: "tv";
   original_language: string;
-  genre_ids: number[];
+  genres: {
+    id: number;
+    name: string;
+  }[];
   popularity: number;
   first_air_date: string;
   softcore: boolean;
   vote_average: number;
   vote_count: number;
   origin_country: string[];
+  tagline: string;
 }
 
 export type MediaItem = Movie | TVShow;

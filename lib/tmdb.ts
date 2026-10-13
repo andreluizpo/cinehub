@@ -61,3 +61,14 @@ export async function getPopularTVShow() {
   const data = await fetchTMDB<{ results: TVShow[] }>("/tv/popular");
   return data?.results.map((item) => ({ ...item, media_type: "tv" as const })) ?? [];
 }
+
+// Buscar os detalhes de um filme ou série pelo ID
+export async function getMediaDetails(type: "movie" | "tv", id: number): Promise<MediaItem | null> {
+  if (type === "movie") {
+    const data = await fetchTMDB<Movie>(`/movie/${id}`);
+    return data ? { ...data, media_type: "movie" } : null;
+  }
+
+  const data = await fetchTMDB<TVShow>(`/tv/${id}`);
+  return data ? { ...data, media_type: "tv" } : null;
+}
