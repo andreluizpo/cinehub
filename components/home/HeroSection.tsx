@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type HeroSectionProps = {
   items: MediaItem[];
@@ -35,6 +36,7 @@ export function HeroSection({ items }: HeroSectionProps) {
 
   if (!featuredMovie) return;
 
+  const url = `${featuredMovie.media_type}/${featuredMovie.id}`;
   const backdropUrl = getBackdropURL(featuredMovie.backdrop_path, "w1280");
   const title = featuredMovie.media_type === "movie" ? featuredMovie.title : featuredMovie.name;
   const mediaType = featuredMovie.media_type === "movie" ? "Filme" : "Série";
@@ -87,9 +89,11 @@ export function HeroSection({ items }: HeroSectionProps) {
           <p className="text-sm md:text-base text-muted-foreground line-clamp-4">{overview}</p>
 
           <div className="flex gap-3">
-            <Button>
-              <InfoCircleIcon />
-              Mais Informações
+            <Button asChild>
+              <Link href={url}>
+                <InfoCircleIcon />
+                Mais Informações
+              </Link>
             </Button>
 
             <Button variant="secondary" size="icon">
