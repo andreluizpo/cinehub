@@ -9,13 +9,18 @@ const options = {
   headers: { accept: "application/json", Authorization: `Bearer ${TMDB_API_ACCESS_TOKEN}` },
 };
 
-async function fetchTMDB<T>(route: string): Promise<T | null> {
+async function fetchTMDB<T>(route: string, params: Record<string, string> = {}): Promise<T | null> {
   // Verifica se existe um token de acesso
   if (!TMDB_API_ACCESS_TOKEN) return null;
 
+  const searchParams = new URLSearchParams({
+    language: "pt-BR",
+    ...params,
+  });
+
   try {
     // Tenta fazer a busca na API
-    const res = await fetch(`${TMDB_BASE_URL}${route}?language=pt-BR`, options);
+    const res = await fetch(`${TMDB_BASE_URL}${route}?${searchParams}`, options);
 
     // Se o resultado não for sucesso, lança um erro
     if (!res.ok) throw new Error("Erro ao buscar");
@@ -65,10 +70,11 @@ export async function getPopularTVShow() {
 // Buscar os detalhes de um filme ou série pelo ID
 export async function getMediaDetails(type: "movie" | "tv", id: number): Promise<MediaItem | null> {
   if (type === "movie") {
-    const data = await fetchTMDB<Movie>(`/movie/${id}`);
+    const data = await fetchTMDB<Movie>(`/movie/${id}`, { append_to_response: "videos,credits" });
     return data ? { ...data, media_type: "movie" } : null;
   }
 
   const data = await fetchTMDB<TVShow>(`/tv/${id}`);
+  console.log(data);
   return data ? { ...data, media_type: "tv" } : null;
 }
