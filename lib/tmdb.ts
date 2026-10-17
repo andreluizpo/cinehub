@@ -52,6 +52,10 @@ export function getBackdropURL(path: string | null, size: "w300" | "w780" | "w12
   return `${NEXT_PUBLIC_TMDB_IMAGE_BASE}/${size}${path}`;
 }
 
+export function getProfileURL(path: string | null, size: "w45" | "w185" | "h632" | "original") {
+  return `${NEXT_PUBLIC_TMDB_IMAGE_BASE}/${size}${path}`;
+}
+
 export async function getTrending() {
   const data = await fetchTMDB<{ results: MediaItem[] }>("/trending/all/day");
   return data?.results ?? [];
@@ -74,7 +78,7 @@ export async function getMediaDetails(type: "movie" | "tv", id: number): Promise
     return data ? { ...data, media_type: "movie" } : null;
   }
 
-  const data = await fetchTMDB<TVShow>(`/tv/${id}`);
+  const data = await fetchTMDB<TVShow>(`/tv/${id}`, { append_to_response: "videos,credits" });
   console.log(data);
   return data ? { ...data, media_type: "tv" } : null;
 }

@@ -1,5 +1,6 @@
 import { getMediaDetails } from "@/lib/tmdb";
 import { HeroSection } from "./HeroSection";
+import { CastCarousel } from "../ui/CastCarrousel";
 
 type MediaSectionProps = {
   id: number;
@@ -14,6 +15,7 @@ export async function MediaSection({ type, id }: MediaSectionProps) {
   return (
     <>
       <HeroSection media={media} />
+      <CastCarousel heading="Elenco" casts={media.credits.cast} />
     </>
   );
 }
