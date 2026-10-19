@@ -1,6 +1,6 @@
 import { getMediaDetails } from "@/lib/tmdb";
 import { HeroSection } from "./HeroSection";
-import { CastCarousel } from "../ui/CastCarrousel";
+import { CastCarousel } from "../ui/CastCarousel";
 
 type MediaSectionProps = {
   id: number;

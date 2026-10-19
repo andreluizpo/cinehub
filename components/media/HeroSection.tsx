@@ -6,7 +6,6 @@ import { StarIcon } from "@solar-icons/react/bold/star";
 import { TvIcon } from "@solar-icons/react/bold/tv";
 import { ClapperboardIcon } from "@solar-icons/react/bold/clapperboard";
 import { ClockCircleIcon } from "@solar-icons/react/bold/clock-circle";
-import { PlayIcon } from "@solar-icons/react/bold/play";
 import { LayersIcon } from "@solar-icons/react/bold/layers";
 
 import { Badge } from "@/components/ui/Badge";
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { MediaItem } from "@/types/tmdb";
 import { getBackdropURL, getPosterURL } from "@/lib/tmdb";
+import { TrailerButton } from "./TrailerButton";
 
 type HeroSectionProps = {
   media: MediaItem;
@@ -36,9 +36,10 @@ export async function HeroSection({ media }: HeroSectionProps) {
   const featuredCrew =
     media.media_type === "movie" ? media.credits.crew.filter((person) => featuredJobs.includes(person.job)) : null;
   const createdBy = media.media_type === "tv" ? media.created_by : null;
+  const videos = media.videos.results;
 
   return (
-    <section className="relative w-full h-auto lg:h-[80vh] overflow-hidden">
+    <section className="relative w-full h-auto overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* Backdrop Image */}
@@ -156,10 +157,7 @@ export async function HeroSection({ media }: HeroSectionProps) {
 
             {/* Action Buttons */}
             <div className="flex gap-3">
-              <Button>
-                <PlayIcon />
-                Assistir Trailer
-              </Button>
+              <TrailerButton videos={videos} />
 
               <Button variant="secondary" size="icon">
                 <AddIcon />

@@ -19,7 +19,9 @@ export interface Movie {
   vote_count: number;
   runtime: number;
   tagline: string;
-  videos: Video[];
+  videos: {
+    results: Video[];
+  };
   credits: {
     cast: Cast[];
     crew: Crew[];
@@ -46,7 +48,9 @@ export interface TVShow {
   vote_count: number;
   origin_country: string[];
   tagline: string;
-  videos: Video[];
+  videos: {
+    results: Video[];
+  };
   credits: {
     cast: Cast[];
     crew: Crew[];
