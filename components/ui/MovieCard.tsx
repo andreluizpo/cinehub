@@ -3,6 +3,7 @@ import { getPosterURL } from "@/lib/tmdb";
 import Image from "next/image";
 import { MediaItem } from "@/types/tmdb";
 import Link from "next/link";
+import { PosterFallback } from "./PosterFallback";
 
 type MovieCardProps = {
   isUpcoming?: boolean;
@@ -10,7 +11,7 @@ type MovieCardProps = {
 };
 
 export function MovieCard({ isUpcoming = false, item }: MovieCardProps) {
-  const posterURL = getPosterURL(item.poster_path, "w342");
+  const posterURL = item.poster_path ? getPosterURL(item.poster_path, "w342") : null;
   const title = item.media_type === "movie" ? item.title : item.name;
   const date = item.media_type === "movie" ? item.release_date : item.first_air_date;
   const year = isUpcoming
@@ -29,13 +30,17 @@ export function MovieCard({ isUpcoming = false, item }: MovieCardProps) {
       <article className="max-w-35 md:max-w-40 group">
         {/* Movie Poster */}
         <div className="relative aspect-2/3 w-35 md:w-40 mb-2.5 rounded-2xl overflow-hidden transition-all group-hover:ring-3 group-hover:ring-primary group-hover:drop-shadow-2xl group-hover:drop-shadow-primary/25">
-          <Image
-            src={posterURL}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 140px, 160px"
-            className="object-cover transition-transform duration-300 group-hover:scale-110 group-hover:animate-scale"
-          />
+          {posterURL ? (
+            <Image
+              src={posterURL}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 140px, 160px"
+              className="object-cover transition-transform duration-300 group-hover:scale-110 group-hover:animate-scale"
+            />
+          ) : (
+            <PosterFallback />
+          )}
         </div>
         {/* Movie Info */}
         <div>

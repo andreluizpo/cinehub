@@ -14,14 +14,16 @@ import Image from "next/image";
 import { MediaItem } from "@/types/tmdb";
 import { getBackdropURL, getPosterURL } from "@/lib/tmdb";
 import { TrailerButton } from "./TrailerButton";
+import { PosterFallback } from "../ui/PosterFallback";
+import { BackdropFallback } from "../ui/BackdropFallback";
 
 type HeroSectionProps = {
   media: MediaItem;
 };
 
 export async function HeroSection({ media }: HeroSectionProps) {
-  const posterUrl = getPosterURL(media.poster_path, "w342");
-  const backdropUrl = getBackdropURL(media.backdrop_path, "w1280");
+  const posterUrl = media.backdrop_path ? getPosterURL(media.poster_path, "w342") : null;
+  const backdropUrl = media.backdrop_path ? getBackdropURL(media.backdrop_path, "w1280") : null;
   const title = media.media_type === "movie" ? media.title : media.name;
   const mediaTypeIcon = media.media_type === "movie" ? <ClapperboardIcon /> : <TvIcon />;
   const mediaType = media.media_type === "movie" ? "Filme" : "Série";
@@ -43,14 +45,18 @@ export async function HeroSection({ media }: HeroSectionProps) {
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* Backdrop Image */}
-        <Image
-          src={backdropUrl}
-          alt={title}
-          fill
-          fetchPriority="high"
-          loading="eager"
-          className="object-cover object-top animate-fade-in animate-duration-1000 animate-fill-mode-both"
-        />
+        {backdropUrl ? (
+          <Image
+            src={backdropUrl}
+            alt={title}
+            fill
+            fetchPriority="high"
+            loading="eager"
+            className="object-cover object-top animate-fade-in animate-duration-1000 animate-fill-mode-both"
+          />
+        ) : (
+          <BackdropFallback />
+        )}
 
         {/* Gradients */}
         <div className="absolute inset-0 bg-linear-to-r from-background via-background/80 to-transparent"></div>
@@ -59,16 +65,20 @@ export async function HeroSection({ media }: HeroSectionProps) {
 
       <div className="container mx-auto relative flex flex-col items-center gap-8 lg:flex-row lg: mt-30 p-4">
         {/* Poster */}
-        <div className="relative aspect-2/3 w-50 lg:w-75 lg:h-112.5 animate-fade-in-up animate-duration-1000 animate-fill-mode-both">
-          <Image
-            src={posterUrl}
-            alt={title}
-            fill
-            fetchPriority="high"
-            loading="eager"
-            sizes="(max-width: 768px) 200px, 300px"
-            className="object-cover rounded-2xl"
-          />
+        <div className="relative aspect-2/3 w-50 lg:w-75 lg:h-112.5 overflow-hidden rounded-2xl animate-fade-in-up animate-duration-1000 animate-fill-mode-both">
+          {posterUrl ? (
+            <Image
+              src={posterUrl}
+              alt={title}
+              fill
+              fetchPriority="high"
+              loading="eager"
+              sizes="(max-width: 768px) 200px, 300px"
+              className="object-cover"
+            />
+          ) : (
+            <PosterFallback />
+          )}
         </div>
 
         {/* Content */}
