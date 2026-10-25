@@ -1,6 +1,7 @@
 import { getProfileURL } from "@/lib/tmdb";
 import { Cast } from "@/types/tmdb";
 import Image from "next/image";
+import { CastFallback } from "./CastFallback";
 
 type CastCarouselProps = {
   heading: string;
@@ -17,13 +18,17 @@ export function CastCarousel({ heading, casts }: CastCarouselProps) {
           <article key={cast.id} className="max-w-35 md:max-w-40 group">
             {/* Cast Profile */}
             <div className="relative aspect-2/3 w-35 md:w-40 mb-2.5 rounded-2xl overflow-hidden transition-all group-hover:ring-3 group-hover:ring-primary group-hover:drop-shadow-2xl group-hover:drop-shadow-primary/25">
-              <Image
-                src={getProfileURL(cast.profile_path, "w185")}
-                alt={cast.name}
-                fill
-                sizes="(max-width: 768px) 140px, 160px"
-                className="object-cover transition-transform duration-300 group-hover:scale-110 group-hover:animate-scale"
-              />
+              {cast.profile_path ? (
+                <Image
+                  src={getProfileURL(cast.profile_path, "w185")}
+                  alt={cast.name}
+                  fill
+                  sizes="(max-width: 768px) 140px, 160px"
+                  className="object-cover transition-transform duration-300 group-hover:scale-110 group-hover:animate-scale"
+                />
+              ) : (
+                <CastFallback />
+              )}
             </div>
 
             {/* Cast Details */}
