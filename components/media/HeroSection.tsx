@@ -65,7 +65,7 @@ export async function HeroSection({ media }: HeroSectionProps) {
 
       <div className="container mx-auto relative flex flex-col items-center gap-8 lg:flex-row lg: mt-30 p-4">
         {/* Poster */}
-        <div className="relative aspect-2/3 w-50 lg:w-75 lg:h-112.5 overflow-hidden rounded-2xl animate-fade-in-up animate-duration-1000 animate-fill-mode-both">
+        <div className="relative shrink-0 aspect-2/3 w-50 lg:w-75 lg:h-112.5 overflow-hidden rounded-2xl animate-fade-in-up animate-duration-1000 animate-fill-mode-both">
           {posterUrl ? (
             <Image
               src={posterUrl}
